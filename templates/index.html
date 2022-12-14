@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            h2{
+                text-align: center;
+            }
+        </style>
+        <meta-charset="UTF-8"/>
+        <title>Simple Flask Application</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    </head>
+    <body>
+        <div><h2>All Students</h2></div>
+        <div class="container">
+            {% if students|length %}
+                <table id = "all-students", class="table table-striped table-bordered">
+                 <tr class="table-primary">
+                  <th>SNo</th>
+                    <th>Roll Number</th>
+                  <th>First Name</th>
+                 <th>Last Name</th>
+                 <th>Actions</th>
+                 </tr>
+                 {% for student in students %}
+                 <tr>
+                     <td>{{ loop.index }}</td>
+                     <td><a href='/student/{{ student["roll_number"] }}'>{{ student["roll_number"] }}</a></td>
+                     <td>{{ student["first_name"] }}</td>
+                     <td>{{ student["last_name"] }}</td>
+                     <td>
+                     <a href='/student/{{ student["roll_number"] }}/update' type="button">Update</a>
+                     <a href='/student/{{ student["roll_number"] }}/delete' type="button">Delete</a>
+                     </td>
+                 </tr>
+                 {% endfor %}
+                </table>
+            {% else %}
+                No Students!!!
+            {% endif %}
+            <div style="text-align:center;">
+                <a href="/student/create"  class="btn btn-primary stretched-link" style="position: relative;">+ Add Student</a>
+            </div>
+        </div>
+    </body>
+</html>
